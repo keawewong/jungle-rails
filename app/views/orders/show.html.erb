@@ -4,8 +4,32 @@
     <h1>Order #<%= @order.id %></h1>
   </header>
 
+  <%#= @order.line_items.product[0][0].product_id %>
+  <%#= @order.line_items.product[0] %>
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
+
+    <tbody>
+      <% @order.line_items.product.each do |product_id, details| %>
+        <%= render 'item', product_id: product_id, details: details %>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="4">
+          <strong>Total Price Of Order:</strong>
+          <%= @order.total_cents %>
+        </th>
+        <th>
+
+        </th>
+        <th>
+          <br>
+          <strong>Email:</strong>
+          <%= current_user.email %>
+        </th>
+      </tr>
+    </tfoot>
   </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
