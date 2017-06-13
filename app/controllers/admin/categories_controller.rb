@@ -1,5 +1,7 @@
 class Admin::CategoriesController < ApplicationController
 
+  before_filter :authorize
+
   def index
     @categories = Category.order(name: :desc).all
   end
@@ -17,7 +19,6 @@ class Admin::CategoriesController < ApplicationController
       render :new
     end
   end
-
 
   private
 
