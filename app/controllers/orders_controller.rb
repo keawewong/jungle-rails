@@ -53,6 +53,9 @@ class OrdersController < ApplicationController
       end
     end
     order.save!
+    puts "this is current_user"
+    puts current_user
+    ApplicationMailer.send_order_confirm(current_user).deliver
     order
   end
 

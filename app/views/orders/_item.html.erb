@@ -1,8 +1,5 @@
 <%# quantity = details['quantity'].to_i %>
-<% puts "TEST" %>
-<% puts "#{product_id.product_id}" %>
-<% puts "#{product_id.quantity}" %>
-<% puts "#{product_id.total_price_cents}" %>
+
 
 <% if product = Product.find_by(id: product_id.product_id) %>
   <% item_total = product.price * product_id.quantity %>
