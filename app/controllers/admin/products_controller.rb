@@ -1,7 +1,7 @@
 class Admin::ProductsController < ApplicationController
 
 
-  before_filter :authorize, :authenticate
+  before_filter :authorize, :authenticateAdmin
 
 
   def index

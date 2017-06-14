@@ -1,32 +1,22 @@
-class CartsController < ApplicationController
+class SessionsController < ApplicationController
 
-  before_filter :authorize
-
-
-  def show
+  def create
+    user = User.find_by_email(params[:email])
+    # If the user exists AND the password entered is correct.
+    if user && user.authenticate(params[:password])
+      # Save the user id inside the browser cookie. This is how we keep the user
+      # logged in when they navigate around our website.
+      session[:user_id] = user.id
+      redirect_to '/'
+    else
+    # If user's login doesn't work, send them back to the login form.
+      redirect_to '/login'
+    end
   end
 
-  def add_item
-    product_id = params[:product_id].to_s
-
-    item = cart[product_id] || { "quantity" => 0 }
-    item["quantity"] += 1
-    cart[product_id] = item
-    update_cart cart
-
-    redirect_to :back
-  end
-
-  def remove_item
-    product_id = params[:product_id].to_s
-
-    item = cart[product_id] || { "quantity" => 1 }
-    item["quantity"] -= 1
-    cart[product_id] = item
-    cart.delete(product_id) if item["quantity"] < 1
-    update_cart cart
-
-    redirect_to :back
+  def destroy
+    session[:user_id] = nil
+    redirect_to '/login'
   end
 
 end
