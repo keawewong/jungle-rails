@@ -133,7 +133,8 @@ cat3.products.create!({
   price: 2_483.75
 })
 
-user1 = User.find_or_create_by! ({first_name: 'bob', last_name: 'long', email: 'bob@email.com', password_digest: '1234'})
+# user1 = User.find_or_create_by! ({first_name: 'bob', last_name: 'long', email: 'bob@email.com', password_digest: '1234'})
+user1 = User.find_or_create_by! ({first_name: 'bob', last_name: 'long', email: 'bob@email.com', password_digest: BCrypt::Password.create('1234')})
 
 
 ## REVIEWS
